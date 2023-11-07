@@ -1,0 +1,6 @@
+**/__pycache__/
+postgres-data
+postgres-data.zip
+**/Pipfile
+**/Pipfile.lock
+**/db.sqlite3
