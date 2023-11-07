@@ -113,20 +113,21 @@ class SearchView(TokenAuthenticationAPIView):
             )
             
             total_price = 0
-            days = len(availability_objects)
+            nights = len(availability_objects)-1
 
             for availability in availability_objects:
-                total_price += availability.price
+                if availability != availability_objects.last():
+                    total_price += availability.price
 
             # If the adult count is begger than standard capacity, calculate the guests price
             guest_count = adult_count-product.standard_capacity
             if guest_count > 0:
-                total_price += (product.adult_price * guest_count * days)
+                total_price += (product.adult_price * guest_count * nights)
 
             # Calculate the children price
-            total_price += (product.child_price * child_count * days)
+            total_price += (product.child_price * child_count * nights)
             # Calculate the Infants price
-            total_price += (product.infant_price * infant_count * days)
+            total_price += (product.infant_price * infant_count * nights)
 
             result.append({
                 "product_name": product.name,
